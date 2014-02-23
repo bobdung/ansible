@@ -1,0 +1,14 @@
+---
+- name: download the bloody intel firmware
+  get_url: url=http://wireless.kernel.org/en/users/Drivers/iwlwifi?action=AttachFile&do=get&target=iwlwifi-6000g2a-ucode-17.168.5.3.tgz dest=/tmp/wlwifi-6000g2a-ucode-17.168.5.3.tgz
+
+- name: unzip firmware
+  shell: tar zxvf /tmp/wlwifi-6000g2a-ucode-17.168.5.3.tgz chdir=/tmp
+
+- name: copy firmware
+  copy: src=/tmp/iwlwifi-6000g2a-ucode-17.168.5.3/iwlwifi-6000g2a-5.ucode dest=/lib/firmware/iwlwifi-6000g2a-5.ucode
+
+- name: load driver
+  shell: modprobe -r iwlwifi && modprobe -v iwlwifi
+
+

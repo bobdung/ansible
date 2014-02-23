@@ -1,0 +1,5 @@
+---
+- hosts: x230
+  sudo: yes
+  roles: 
+    - x230
