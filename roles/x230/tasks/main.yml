@@ -24,3 +24,6 @@
 - name: install it
   shell: VBoxManage extpack install /tmp/Oracle_VM_VirtualBox_Extension_Pack-`VBoxManage -v|sed s/r/-/g`.vbox-extpack
   tags: extpack
+
+- name: install flash player
+  apt: pkg=flashplugin-nonfree state=latest 
