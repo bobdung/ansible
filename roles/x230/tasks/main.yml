@@ -11,4 +11,16 @@
 - name: load driver
   shell: modprobe -r iwlwifi && modprobe -v iwlwifi
 
+- name: add repo for virtualbox
+  shell: echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -sc) contrib" > /etc/apt/sources.list.d/virtualbox.list
 
+- name: install virtualbox
+  apt: pkg=virtualbox-4.3 state=latest update_cache=yes 
+
+- name: get extension
+  shell: wget -P /tmp http://download.virtualbox.org/virtualbox/`VBoxManage -v| sed s/r.*$//g`/Oracle_VM_VirtualBox_Extension_Pack-`VBoxManage -v|sed s/r/-/g`.vbox-extpack 
+  tags: extpack
+
+- name: install it
+  shell: VBoxManage extpack install /tmp/Oracle_VM_VirtualBox_Extension_Pack-`VBoxManage -v|sed s/r/-/g`.vbox-extpack
+  tags: extpack
