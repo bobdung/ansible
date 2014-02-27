@@ -17,6 +17,12 @@
 - name: install virtualbox
   apt: pkg=virtualbox-4.3 state=latest update_cache=yes 
 
+- name: install xfce
+  apt: pkg={{ item }} state=latest
+  with_items:
+   - xfce4
+   - xfce4-goodies
+
 - name: get extension
   shell: wget -P /tmp http://download.virtualbox.org/virtualbox/`VBoxManage -v| sed s/r.*$//g`/Oracle_VM_VirtualBox_Extension_Pack-`VBoxManage -v|sed s/r/-/g`.vbox-extpack 
   tags: extpack
@@ -27,3 +33,6 @@
 
 - name: install flash player
   apt: pkg=flashplugin-nonfree state=latest 
+
+- name: make fonts a bit smoother
+  copy: src=_.fonts.conf dest=/etc/skel/.fonts.conf mode=644 
